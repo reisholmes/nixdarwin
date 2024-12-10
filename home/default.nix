@@ -25,6 +25,10 @@ in
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
+    # Aliases for the terminal
+    home.shellAliases = {
+    };
+
     # The home.packages option allows you to install Nix packages into your
     # environment.
     home.packages = with pkgs;
@@ -43,7 +47,7 @@ in
         # Terminal fonts
 	#nerd-fonts.hack
 	(nerdfonts.override {fonts = [ "Hack" ]; })
-  
+
 	# nix lsp requirement
 	nixd
       ];
@@ -61,8 +65,8 @@ in
       enableZshIntegration = true;
 
       settings = {
-        ctrl_n_shortcuts = false;
-        keymap_mode = "vim-normal";
+	ctrl_n_shortcuts = false;
+	keymap_mode = "vim-normal";
       };
     };
 
@@ -71,14 +75,14 @@ in
       enable = true;
 
       keybindings = {
-        "ctrl+t" = "launch --cwd=current --type=tab";
+	"ctrl+t" = "launch --cwd=current --type=tab";
       };
       settings = {
-        active_border_color = "none";
+	active_border_color = "none";
 	background_blur = 32;
-        background_opacity = "0.93";
-        draw_minimal_borders = "yes";
-        font_size = 13;
+	background_opacity = "0.93";
+	draw_minimal_borders = "yes";
+	font_size = 13;
 	initial_window_height = 44;
 	initial_window_width = 160;
 	remember_window_size = "yes";
@@ -86,26 +90,26 @@ in
       };
       themeFile = "Catppuccin-Macchiato";
     };
-      
+
     # LazyGit
     programs.lazygit = {
       enable = true;
 
       settings = {
-      gui.nerdFontsVersion = "3";
+	gui.nerdFontsVersion = "3";
       };
     };
 
     # oh-my-posh
     programs.oh-my-posh = {
       enable = true;
-      
+
       useTheme = "catppuccin_macchiato";
     };
 
     programs.wezterm = {
       enable = true;
-    
+
       extraConfig = ''
       -- Your lua code / config here
       local wezterm = require 'wezterm';
@@ -138,6 +142,9 @@ eval "$(oh-my-posh init zsh)"
 autoload bashcompinit && bashcompinit
 source $(brew --prefix)/etc/bash_completion.d/az
       '';
+      shellAliases = {
+	nix_rebuild = "darwin-rebuild switch --flake /Users/reis.holmes/Documents/code/repos/nix-darwin/#reis-work";
+      };
       syntaxHighlighting.enable = true;
 
       plugins = [
