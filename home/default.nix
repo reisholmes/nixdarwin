@@ -75,9 +75,10 @@ in
       };
       settings = {
         active_border_color = "none";
+	background_blur = 32;
         background_opacity = "0.93";
         draw_minimal_borders = "yes";
-        font_size = 12;
+        font_size = 13;
 	initial_window_height = 44;
 	initial_window_width = 160;
 	remember_window_size = "yes";
@@ -109,12 +110,12 @@ in
       -- Your lua code / config here
       local wezterm = require 'wezterm';
       return {
-           -- Initial sizing of window
-           initial_cols = 160,
-           initial_rows = 36,
-	   font = wezterm.font("Hack Nerd Font"),
-	   font_size = 12.0,
-	   color_scheme = "Catppuccin Macchiato",
+	-- Initial sizing of window
+	initial_cols = 160,
+	initial_rows = 36,
+	font = wezterm.font("Hack Nerd Font"),
+	font_size = 12.0,
+	color_scheme = "Catppuccin Macchiato",
       }
       '';
     };
@@ -140,30 +141,30 @@ source $(brew --prefix)/etc/bash_completion.d/az
       syntaxHighlighting.enable = true;
 
       plugins = [
-      {
-	# will source zsh-autosuggestions.plugin.zsh
-	name = "zsh-autosuggestions";
-	src = pkgs.fetchFromGitHub {
-	  owner = "zsh-users";
-	  repo = "zsh-autosuggestions";
-	  rev = "v0.7.0";
-	  #this shows how to get a sha256, run the flake build and it will error with the real sha
-	  #sha256 = pkgs.lib.fakeSha256;
-	  sha256 = "KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w="; 
-	};
-      }
-      {
-	# will source zsh-autosuggestions.plugin.zsh
-	name = "zsh-autocomplete";
-	src = pkgs.fetchFromGitHub {
-	  owner = "marlonrichert";
-	  repo = "zsh-autocomplete";
-	  rev = "24.09.04";
-	  #this shows how to get a sha256, run the flake build and it will error with the real sha
-	  #sha256 = pkgs.lib.fakeSha256;
-	  sha256 = "o8IQszQ4/PLX1FlUvJpowR2Tev59N8lI20VymZ+Hp4w="; 
-	};
-      }
+	{
+	  # will source zsh-autosuggestions.plugin.zsh
+	  name = "zsh-autosuggestions";
+	  src = pkgs.fetchFromGitHub {
+	    owner = "zsh-users";
+	    repo = "zsh-autosuggestions";
+	    rev = "v0.7.0";
+	    #this shows how to get a sha256, run the flake build and it will error with the real sha
+	    #sha256 = pkgs.lib.fakeSha256;
+	    sha256 = "KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w="; 
+	  };
+	}
+	{
+	  # will source zsh-autosuggestions.plugin.zsh
+	  name = "zsh-autocomplete";
+	  src = pkgs.fetchFromGitHub {
+	    owner = "marlonrichert";
+	    repo = "zsh-autocomplete";
+	    rev = "24.09.04";
+	    #this shows how to get a sha256, run the flake build and it will error with the real sha
+	    #sha256 = pkgs.lib.fakeSha256;
+	    sha256 = "o8IQszQ4/PLX1FlUvJpowR2Tev59N8lI20VymZ+Hp4w="; 
+	  };
+	}
       ];
 
       oh-my-zsh = {
