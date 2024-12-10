@@ -25,7 +25,7 @@ in
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
-    programs.zsh.enable = true;
+    # programs.zsh.enable = true;
     #fonts.fontconfig.enable = true;
 
     # The home.packages option allows you to install Nix packages into your
@@ -116,55 +116,62 @@ in
       '';
     };
 
-	# ZSH
-	programs.zsh = {
-#		enable = true;
+    # ZSH
+    programs.zsh = {
+      enable = true;
 
-		autosuggestion.enable = true;
-		enableCompletion = false;
-		initExtra = ''
-			eval "$(atuin init zsh)"
-			eval "$(oh-my-posh init zsh)"
-		'';
-		syntaxHighlighting.enable = true;
+      autosuggestion.enable = true;
+      enableCompletion = false;
+      initExtraBeforeCompInit = ''
+eval "$(brew shellenv)"
+      '';
+      initExtra = ''
+# for atuin
+eval "$(atuin init zsh)"
+eval "$(oh-my-posh init zsh)"
 
-		plugins = [
-			{
-				# will source zsh-autosuggestions.plugin.zsh
-				name = "zsh-autosuggestions";
-				src = pkgs.fetchFromGitHub {
-					owner = "zsh-users";
-					repo = "zsh-autosuggestions";
-					rev = "v0.7.0";
-					#this shows how to get a sha256, run the flake build and it will error with the real sha
-					#sha256 = pkgs.lib.fakeSha256;
-					sha256 = "KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w="; 
-				};
-			}
-			{
-				# will source zsh-autosuggestions.plugin.zsh
-				name = "zsh-autocomplete";
-				src = pkgs.fetchFromGitHub {
-					owner = "marlonrichert";
-					repo = "zsh-autocomplete";
-					rev = "24.09.04";
-					#this shows how to get a sha256, run the flake build and it will error with the real sha
-					#sha256 = pkgs.lib.fakeSha256;
-					sha256 = "o8IQszQ4/PLX1FlUvJpowR2Tev59N8lI20VymZ+Hp4w="; 
-				};
-			}
-		];
+# for az cli
+autoload bashcompinit && bashcompinit
+source $(brew --prefix)/etc/bash_completion.d/az
+      '';
+      syntaxHighlighting.enable = true;
 
-		oh-my-zsh = {
-			enable = true;
-
-			plugins = [
-				"git"
-				"z"
-			];
-		};
+      plugins = [
+      {
+	# will source zsh-autosuggestions.plugin.zsh
+	name = "zsh-autosuggestions";
+	src = pkgs.fetchFromGitHub {
+	  owner = "zsh-users";
+	  repo = "zsh-autosuggestions";
+	  rev = "v0.7.0";
+	  #this shows how to get a sha256, run the flake build and it will error with the real sha
+	  #sha256 = pkgs.lib.fakeSha256;
+	  sha256 = "KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w="; 
 	};
+      }
+      {
+	# will source zsh-autosuggestions.plugin.zsh
+	name = "zsh-autocomplete";
+	src = pkgs.fetchFromGitHub {
+	  owner = "marlonrichert";
+	  repo = "zsh-autocomplete";
+	  rev = "24.09.04";
+	  #this shows how to get a sha256, run the flake build and it will error with the real sha
+	  #sha256 = pkgs.lib.fakeSha256;
+	  sha256 = "o8IQszQ4/PLX1FlUvJpowR2Tev59N8lI20VymZ+Hp4w="; 
+	};
+      }
+      ];
 
+      oh-my-zsh = {
+	enable = true;
+
+	plugins = [
+	  "git"
+	  "z"
+	];
+      };
+    };
 
   };
 }
