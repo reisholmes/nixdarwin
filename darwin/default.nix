@@ -1,7 +1,30 @@
 { pkgs, config, ... }:
 
 {
+  # adds an overlay for karabiner-elements due to issue at:
+  # https://github.com/LnL7/nix-darwin/issues/1041
+  nixpkgs = {
+      config = {
+        allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+    };
+    overlays = [
+      (self: super: {
+        karabiner-elements = super.karabiner-elements.overrideAttrs (old: {
+          version = "14.13.0";
+
+          src = super.fetchurl {
+            inherit (old.src) url;
+            hash = "sha256-gmJwoht/Tfm5qMecmq1N6PSAIfWOqsvuHU8VDJY8bLw=";
+          };
+        });
+      })
+    ];
+  };
+
+
   environment.systemPackages = with pkgs; [
+    karabiner-elements
   ];
 
   homebrew = import ./homebrew.nix // { enable = true; };
@@ -14,7 +37,7 @@
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
-  nixpkgs.config.allowUnfree = true;
+  #  nixpkgs.config.allowUnfree = true;
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina

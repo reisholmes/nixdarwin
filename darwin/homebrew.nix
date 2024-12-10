@@ -1,4 +1,5 @@
 {
+  # uninstall or zap, zap may remove files other programs require
   onActivation.cleanup = "uninstall";
 
   # directory (and usually git repo) of formulae, casks, and/or external cmds
