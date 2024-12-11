@@ -7,6 +7,7 @@ in
 {
   # https://nix-community.github.io/home-manager/options.html
   imports = [
+    ./k9s
   ];
 
   config = {
@@ -35,6 +36,7 @@ in
       [
 	git
         htop
+	#k9s
 	lf
 	jq
         neovim
@@ -45,8 +47,8 @@ in
 	yq
 
         # Terminal fonts
-	#nerd-fonts.hack
-	(nerdfonts.override {fonts = [ "Hack" ]; })
+	nerd-fonts.hack
+	#(nerdfonts.override {fonts = [ "Hack" ]; })
 
 	# nix lsp requirement
 	nixd
