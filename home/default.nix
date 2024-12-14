@@ -37,6 +37,8 @@ in
 	git
         htop
 	#k9s
+	fd
+	fzf
 	lf
 	jq
         neovim
@@ -52,6 +54,10 @@ in
 
 	# nix lsp requirement
 	nixd
+
+	# Terraform lsp, completion
+	terraform-ls
+	tflint
       ];
 
     home.sessionVariables = {

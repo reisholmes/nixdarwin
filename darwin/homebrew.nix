@@ -13,12 +13,12 @@
   # typically pre compiled binaries
   brews = [
     "azure-cli"
-    "terraform"
   ];
 
   # Homebrew package definition that installs macOS native applications
   # Casks offer a way to cmd line manage installs of Graphical apps
   casks = [
+    "1password"
     "powershell"
     # raycast shortcut setup
     # https://www.youtube.com/watch?v=DBifQv9AYhc
