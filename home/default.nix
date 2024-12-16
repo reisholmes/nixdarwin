@@ -52,6 +52,9 @@ in
 	nerd-fonts.hack
 	#(nerdfonts.override {fonts = [ "Hack" ]; })
 
+	# markdown lsp requirement
+	markdownlint-cli
+
 	# nix lsp requirement
 	nixd
 
