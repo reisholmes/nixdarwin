@@ -26,6 +26,9 @@
   ];
 
   # MacStore apps, have to be logged in
+  # search for apps using mas cli
+  # mas list, mas search "xxx"
   masApps = {
+    "windows app" = 1295203466;   
   };
 }

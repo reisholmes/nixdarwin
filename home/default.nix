@@ -4,7 +4,7 @@ let
   isDarwin = pkgs.stdenv.isDarwin;
   #emacs = (import ../darwin/emacs.nix) { pkgs = pkgs; };
 in
-{
+  {
   # https://nix-community.github.io/home-manager/options.html
   imports = [
     ./k9s
@@ -34,21 +34,22 @@ in
     # environment.
     home.packages = with pkgs;
       [
-	git
-        htop
-	#k9s
+	bat
+	eza
 	fd
-	fzf
-	lf
+	git
+	htop
 	jq
-        neovim
+	lf
+	mas
+	neovim
 	ripgrep
 	terraform
 	tree
 	wget
 	yq
 
-        # Terminal fonts
+	# Terminal fonts
 	nerd-fonts.hack
 	#(nerdfonts.override {fonts = [ "Hack" ]; })
 
@@ -77,8 +78,27 @@ in
 
       settings = {
 	ctrl_n_shortcuts = false;
-	keymap_mode = "vim-normal";
+	keymap_mode = "vim-insert";
       };
+    };
+
+    # fzf
+    programs.fzf = {
+      enable = true;
+
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+
+      # https://github.com/Sin-cy/dotfiles/blob/main/zsh/.zshrc
+      # https://github.com/nix-community/home-manager/blob/master/modules/programs/fzf.nix
+      defaultCommand =  "fd --hidden --strip-cwd-prefix --exclude .git" ;
+      defaultOptions = [ "--height 50%" "--layout=default" "--border" "--color=hl:#2dd4bf"];
+      # Command that gets executed when pressing ctrl+t
+      fileWidgetCommand = "fd --hidden --strip-cwd-prefix --exclude .git";
+      fileWidgetOptions = [ "--preview 'bat --color=always -n --line-range :500 {}'" ];
+      # Command that gets executed when pressing ctrl+c
+      changeDirWidgetCommand = "fd --type=d --hidden --strip-cwd-prefix --exclude .git" ;
+      changeDirWidgetOptions = [ "--preview 'eza --icons=always --tree --color=always {} | head -200'" ];
     };
 
     # Kitty
@@ -86,7 +106,7 @@ in
       enable = true;
 
       keybindings = {
-	"ctrl+t" = "launch --cwd=current --type=tab";
+	"ctrl+shift+t" = "launch --cwd=current --type=tab";
       };
       settings = {
 	active_border_color = "none";
@@ -94,6 +114,7 @@ in
 	background_opacity = "0.93";
 	draw_minimal_borders = "yes";
 	font_size = 13;
+	macos_option_as_alt = "yes";
 	initial_window_height = 44;
 	initial_window_width = 160;
 	remember_window_size = "yes";
@@ -140,11 +161,16 @@ in
       enable = true;
 
       autosuggestion.enable = true;
+      defaultKeymap = "viins";
       enableCompletion = false;
       initExtraBeforeCompInit = ''
 eval "$(brew shellenv)"
       '';
       initExtra = ''
+# mac is dumb
+# https://github.com/junegunn/fzf/issues/164#issuecomment-527826925
+bindkey "ç" fzf-cd-widget
+
 # for atuin
 eval "$(atuin init zsh)"
 eval "$(oh-my-posh init zsh)"
@@ -154,7 +180,15 @@ autoload bashcompinit && bashcompinit
 source $(brew --prefix)/etc/bash_completion.d/az
       '';
       shellAliases = {
+	# easier rebuilding on darwin
 	nix_rebuild = "darwin-rebuild switch --flake /Users/reis.holmes/Documents/code/repos/nix-darwin/#reis-work";
+
+	# modern cat command remap
+	cat="bat";
+
+	# Next level of an ls 
+	#options :  --no-filesize --no-time --no-permissions 
+	ls="eza --no-filesize --long --color=always --icons=always --no-user";
       };
       syntaxHighlighting.enable = true;
 
