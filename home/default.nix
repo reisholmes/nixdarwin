@@ -43,6 +43,7 @@ in
 	lf
 	mas
 	neovim
+	# oh-my-posh
 	ripgrep
 	terraform
 	tree
@@ -133,10 +134,15 @@ in
     };
 
     # oh-my-posh
+    # use our custom theme, but example below of how we could source program 
+    # with a default theme
+    home.file."/Users/reis.holmes/nord.omp.json" = {
+      source = ./nord.omp.json;
+    };
     programs.oh-my-posh = {
-      enable = true;
-
-      useTheme = "catppuccin_macchiato";
+      enable = false;
+      
+      # useTheme = "catppuccin_macchiato";
     };
 
     programs.wezterm = {
@@ -163,9 +169,11 @@ in
       autosuggestion.enable = true;
       defaultKeymap = "viins";
       enableCompletion = false;
+
       initExtraBeforeCompInit = ''
 eval "$(brew shellenv)"
       '';
+
       initExtra = ''
 # mac is dumb
 # https://github.com/junegunn/fzf/issues/164#issuecomment-527826925
@@ -178,7 +186,11 @@ eval "$(oh-my-posh init zsh)"
 # for az cli
 autoload bashcompinit && bashcompinit
 source $(brew --prefix)/etc/bash_completion.d/az
+
+# for oh-my-posh
+eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ~/nord.omp.json)"
       '';
+
       shellAliases = {
 	# easier rebuilding on darwin
 	nix_rebuild = "darwin-rebuild switch --flake /Users/reis.holmes/Documents/code/repos/nix-darwin/#reis-work";
