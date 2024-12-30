@@ -43,12 +43,13 @@ in
 	lf
 	mas
 	neovim
-	# oh-my-posh
+	oh-my-posh
 	ripgrep
 	terraform
 	tree
 	wget
 	yq
+	zoxide
 
 	# Terminal fonts
 	nerd-fonts.hack
@@ -114,7 +115,7 @@ in
 	background_blur = 32;
 	background_opacity = "0.93";
 	draw_minimal_borders = "yes";
-	font_size = 13;
+	font_size = 15;
 	macos_option_as_alt = "yes";
 	initial_window_height = 44;
 	initial_window_width = 160;
@@ -236,7 +237,8 @@ eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ~/nord.omp.json)"
 
 	plugins = [
 	  "git"
-	  "z"
+	  "zoxide"
+	  #  "z"
 	];
       };
     };

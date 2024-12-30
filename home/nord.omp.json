@@ -1,34 +1,36 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-    "os": "#ACB0BE",
+    "blue":  "#8aadf4",
     "closer": "p:os",
-    "pink": "#F5C2E7",
-    "lavender": "#B4BEFE",
-    "blue":  "#89B4FA"
+    "crust": "#181926",
+    "lavender": "#b7bdf8",
+    "mantle": "#1e2030",
+    "os": "#5b6078",
+    "pink": "#f6bde6",
+    "yellow": "#eed49f" 
   },
   "blocks": [
     {
       "alignment": "left",
       "segments": [
         {
-          "foreground": "#3b4252",
-          "background_templates": [
-            "{{if eq \"Charged\" .State.String}}#2e3440{{end}}",
-            "{{if eq \"Charging\" .State.String}}#EBCB8B{{end}}",
-            "{{if eq \"Discharging\" .State.String}}#BF616A{{end}}",
-            "{{if eq \"Full\" .State.String}}#2e3440{{end}}",
-            "{{if eq \"Not Charging\" .State.String}}#B48EAD{{end}}"
+          "foreground_templates": [
+            "{{if eq \"Charged\" .State.String}}p:os{{end}}",
+            "{{if eq \"Charging\" .State.String}}p:os{{end}}",
+            "{{if eq \"Discharging\" .State.String}}p:yellow{{end}}",
+            "{{if eq \"Full\" .State.String}}p:os{{end}}",
+            "{{if eq \"Not Charging\" .State.String}}p:os{{end}}"
           ],
           "properties": {
-            "charged_icon": "\udb80\udc85",
-            "charging_icon": " \udb82\udc9d ",
-            "discharging_icon": " \udb85\udfde ",
-            "not_charging_icon": " \uf1e6",
+            "charged_icon": "\udb84\ude0f ",
+            "charging_icon": "\udb82\udc9d ",
+            "discharging_icon": "\udb85\udfde ",
+            "not_charging_icon": "\uf1e6 ",
             "style": "plain"
           },
           "style": "plain",
-          "template": "{{ if .Error }}{{ .Error }} {{ else if eq .State.String \"Charged\" }}{{ .Icon }}{{ .Percentage }}%{{else}}{{ .Icon }}{{ .Percentage }}% {{ end }}",
+          "template": "{{ if .Error }}{{ .Error }}{{ else if eq .State.String \"Full\" }}{{ .Icon }}{{else}}{{ .Icon }}{{ .Percentage }}% {{ end }}",
           "type": "battery"
         },
         {
@@ -56,23 +58,27 @@
         {
           "foreground": "p:lavender",
           "properties": {
-            "branch_ahead_icon": "<#88C0D0>\u21e1 </>",
-            "branch_behind_icon": "<#88C0D0>\u21e3 </>",
-            "branch_icon": "",
+            "branch_icon": "\ue725 ",
+            "cherry_pick_icon": "\ue29b ",
+            "commit_icon": "\uf417 ",
             "fetch_stash_count": true,
             "fetch_status": true,
             "fetch_upstream_icon": true,
-            "github_icon": ""
+            "merge_icon": "\ue727 ",
+            "no_commits_icon": "\uf0c3 ",
+            "rebase_icon": "\ue728 ",
+            "revert_icon": "\uf0e2 ",
+            "tag_icon": "\uf412 "
           },
           "style": "plain",
-          "template": "{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}<#FFAFD7>*</>{{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+          "template": "{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
           "type": "git"
         }
       ],
       "type": "prompt"
     },
     {
-      "alignment": "left",
+      "alignment": "right",
       "segments": [
         {
           "foreground": "#A3BE8C",
