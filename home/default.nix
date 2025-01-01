@@ -114,13 +114,20 @@ in
 	active_border_color = "none";
 	background_blur = 32;
 	background_opacity = "0.93";
-	draw_minimal_borders = "yes";
-	font_size = 15;
+	cursor_shape = "beam";
+	font_size = 15.5;
 	macos_option_as_alt = "yes";
 	initial_window_height = 44;
 	initial_window_width = 160;
 	remember_window_size = "yes";
 	titlebar-only = "yes";
+	# minimalising the kitty setup look
+	draw_minimal_borders = "yes";
+	hide_window_decorations = "yes";
+	window_border_width = 0;
+	# fun with cursor trails
+	cursor_trail = 3;
+	cursor_trail_decay = "0.1 0.2";
       };
       themeFile = "Catppuccin-Macchiato";
     };
