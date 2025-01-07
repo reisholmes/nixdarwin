@@ -37,9 +37,12 @@ in
 	bat
 	eza
 	fd
+	fluxcd
 	git
 	htop
 	jq
+	kubectl
+	kubelogin
 	lf
 	mas
 	neovim
@@ -144,8 +147,8 @@ in
     # oh-my-posh
     # use our custom theme, but example below of how we could source program 
     # with a default theme
-    home.file."/Users/reis.holmes/nord.omp.json" = {
-      source = ./nord.omp.json;
+    home.file."/Users/reis.holmes/catppucin.omp.json" = {
+      source = ./catppuccin.omp.json;
     };
     programs.oh-my-posh = {
       enable = false;

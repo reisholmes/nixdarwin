@@ -23,14 +23,11 @@
             "{{if eq \"Not Charging\" .State.String}}p:os{{end}}"
           ],
           "properties": {
-            "charged_icon": "\udb84\ude0f ",
-            "charging_icon": "\udb82\udc9d ",
-            "discharging_icon": "\udb85\udfde ",
-            "not_charging_icon": "\uf1e6 ",
+            "discharging_icon": "\udb85\udfde",
             "style": "plain"
           },
           "style": "plain",
-          "template": "{{ if .Error }}{{ .Error }}{{ else if eq .State.String \"Full\" }}{{ .Icon }}{{else}}{{ .Icon }}{{ .Percentage }}% {{ end }}",
+          "template": "{{ if .Error }}{{ .Error }}{{ else if eq .State.String \"Discharging\" }}{{ .Icon }}{{ .Percentage }}% {{ end }}",
           "type": "battery"
         },
         {
