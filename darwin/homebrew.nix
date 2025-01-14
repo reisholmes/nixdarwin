@@ -12,6 +12,7 @@
 
   # typically pre compiled binaries
   brews = [
+    "adr-tools"
     "azure-cli"
   ];
 
