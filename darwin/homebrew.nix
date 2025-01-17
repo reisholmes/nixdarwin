@@ -7,6 +7,7 @@
   # directory (and usually git repo) of formulae, casks, and/or external cmds
   taps = [
     "hashicorp/tap"
+    "jesseduffield/lazydocker"
     "powershell/tap"
   ];
 
@@ -14,6 +15,7 @@
   brews = [
     "adr-tools"
     "azure-cli"
+    "lazydocker"
   ];
 
   # Homebrew package definition that installs macOS native applications
