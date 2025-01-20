@@ -117,7 +117,7 @@ in
 	"ctrl+shift+t" = "launch --cwd=current --type=tab";
       };
       settings = {
-	active_border_color = "none";
+	active_border_color = "#a6da95";
 	background_blur = 32;
 	background_opacity = "0.93";
 	cursor_shape = "beam";
@@ -128,9 +128,11 @@ in
 	remember_window_size = "yes";
 	titlebar-only = "yes";
 	# minimalising the kitty setup look
-	draw_minimal_borders = "yes";
-	hide_window_decorations = "yes";
-	window_border_width = 0;
+	#draw_minimal_borders = "yes";
+	hide_window_decorations = "titlebar-only";
+	placement_strategy = "center";
+	window_border_width = "1pt";
+	window_margin_width = 1;
 	# fun with cursor trails
 	cursor_trail = 3;
 	cursor_trail_decay = "0.1 0.2";
