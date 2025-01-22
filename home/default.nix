@@ -7,7 +7,11 @@ in
   {
   # https://nix-community.github.io/home-manager/options.html
   imports = [
-    ./k9s
+    ./modules/k9s
+    ./modules/fzf.nix
+    ./modules/kitty.nix
+    ./modules/lazygit.nix
+    ./modules/zsh.nix
   ];
 
   config = {
@@ -36,6 +40,7 @@ in
       [
 	bat
 	btop
+	duf
 	eza
 	fd
 	fluxcd
@@ -50,10 +55,10 @@ in
 	oh-my-posh
 	ripgrep
 	terraform
+	tldr
 	tree
 	wget
 	yq
-	zoxide
 
 	# Terminal fonts
 	nerd-fonts.hack
@@ -73,7 +78,7 @@ in
       ];
 
     home.sessionVariables = {
-      EDITOR = "vim";
+      EDITOR = "nvim";
     };
 
     # Custom programs that only require a few lines go here
@@ -90,94 +95,21 @@ in
       };
     };
 
-    # fzf
-    programs.fzf = {
-      enable = true;
-
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-
-      # https://github.com/Sin-cy/dotfiles/blob/main/zsh/.zshrc
-      # https://github.com/nix-community/home-manager/blob/master/modules/programs/fzf.nix
-      defaultCommand =  "fd --hidden --strip-cwd-prefix --exclude .git" ;
-      defaultOptions = [ "--height 50%" "--layout=default" "--border" "--color=hl:#2dd4bf"];
-      # Command that gets executed when pressing ctrl+t
-      fileWidgetCommand = "fd --hidden --strip-cwd-prefix --exclude .git";
-      fileWidgetOptions = [ "--preview 'bat --color=always -n --line-range :500 {}'" ];
-      # Command that gets executed when pressing ctrl+c
-      changeDirWidgetCommand = "fd --type=d --hidden --strip-cwd-prefix --exclude .git" ;
-      changeDirWidgetOptions = [ "--preview 'eza --icons=always --tree --color=always {} | head -200'" ];
-    };
-
-    # Kitty
-    programs.kitty = {
-      enable = true;
-
-      keybindings = {
-	"ctrl+shift+t" = "launch --cwd=current --type=tab";
-      };
-      settings = {
-	active_border_color = "#a6da95";
-	background_blur = 32;
-	background_opacity = "0.93";
-	cursor_shape = "beam";
-	font_size = 15.5;
-	macos_option_as_alt = "yes";
-	initial_window_height = 44;
-	initial_window_width = 160;
-	remember_window_size = "yes";
-	titlebar-only = "yes";
-	# minimalising the kitty setup look
-	#draw_minimal_borders = "yes";
-	hide_window_decorations = "titlebar-only";
-	placement_strategy = "center";
-	window_border_width = "1pt";
-	window_margin_width = 1;
-	# fun with cursor trails
-	cursor_trail = 3;
-	cursor_trail_decay = "0.1 0.2";
-      };
-      themeFile = "Catppuccin-Macchiato";
-    };
-
-    # LazyGit
-    programs.lazygit = {
-      enable = true;
-
-      settings = {
-	gui.nerdFontsVersion = "3";
-	gui.theme = {
-	  # https://github.com/catppuccin/lazygit/blob/main/themes/macchiato/pink.yml
-	  activeBorderColor = ["#f5bde6" "bold"];
-	  inactiveBorderColor = [ "#a5adcb" ];
-	  optionsTextColor = [ "#8aadf4" ];
-	  selectedLineBgColor = [ "#363a4f" ];
-	  cherryPickedCommitBgColor = [ "#494d64" ];
-	  cherryPickedCommitFgColor = [ "#f5bde6" ];
-	  unstagedChangesColor = [ "#ed8796" ];
-	  defaultFgColor = [ "#cad3f5" ];
-	  searchingActiveBorderColor = [ "#eed49f" ];
-	};
-	gui.authorColors = {
-	  "*" = "#b7bdf8";
-	};
-      };
-    };
-
     # oh-my-posh
-    # use our custom theme, but example below of how we could source program 
-    # with a default theme
+    # place our custom theme, used in modules/zsh.nix, 
     home.file."/Users/reis.holmes/catppuccin.omp.json" = {
       source = ./catppuccin.omp.json;
     };
+    # but example below of how we could source program 
+    # with a default theme
     programs.oh-my-posh = {
       enable = false;
-      
       # useTheme = "catppuccin_macchiato";
     };
 
+    # Wezterm
     programs.wezterm = {
-      enable = true;
+      enable = false;
 
       extraConfig = ''
       -- Your lua code / config here
@@ -193,84 +125,11 @@ in
       '';
     };
 
-    # ZSH
-    programs.zsh = {
+    # Zoxide
+    # https://home-manager-options.extranix.com/?query=programs.zoxide&release=master
+    programs.zoxide = {
       enable = true;
-
-      autosuggestion.enable = true;
-      defaultKeymap = "viins";
-      enableCompletion = false;
-
-      initExtraBeforeCompInit = ''
-eval "$(brew shellenv)"
-      '';
-
-      initExtra = ''
-# mac is dumb
-# https://github.com/junegunn/fzf/issues/164#issuecomment-527826925
-bindkey "ç" fzf-cd-widget
-
-# for atuin
-eval "$(atuin init zsh)"
-eval "$(oh-my-posh init zsh)"
-
-# for az cli
-autoload bashcompinit && bashcompinit
-source $(brew --prefix)/etc/bash_completion.d/az
-
-# for oh-my-posh
-eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ~/catppuccin.omp.json)"
-      '';
-
-      shellAliases = {
-	# easier rebuilding on darwin
-	nix_rebuild = "darwin-rebuild switch --flake /Users/reis.holmes/Documents/code/repos/nix-darwin/#reis-work";
-
-	# modern cat command remap
-	cat="bat";
-
-	# Next level of an ls 
-	#options :  --no-filesize --no-time --no-permissions 
-	ls="eza --no-filesize --long --color=always --icons=always --no-user";
-      };
-      syntaxHighlighting.enable = true;
-
-      plugins = [
-	{
-	  # will source zsh-autosuggestions.plugin.zsh
-	  name = "zsh-autosuggestions";
-	  src = pkgs.fetchFromGitHub {
-	    owner = "zsh-users";
-	    repo = "zsh-autosuggestions";
-	    rev = "v0.7.0";
-	    #this shows how to get a sha256, run the flake build and it will error with the real sha
-	    #sha256 = pkgs.lib.fakeSha256;
-	    sha256 = "KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w="; 
-	  };
-	}
-	{
-	  # will source zsh-autosuggestions.plugin.zsh
-	  name = "zsh-autocomplete";
-	  src = pkgs.fetchFromGitHub {
-	    owner = "marlonrichert";
-	    repo = "zsh-autocomplete";
-	    rev = "24.09.04";
-	    #this shows how to get a sha256, run the flake build and it will error with the real sha
-	    #sha256 = pkgs.lib.fakeSha256;
-	    sha256 = "o8IQszQ4/PLX1FlUvJpowR2Tev59N8lI20VymZ+Hp4w="; 
-	  };
-	}
-      ];
-
-      oh-my-zsh = {
-	enable = true;
-
-	plugins = [
-	  "git"
-	  "zoxide"
-	  #  "z"
-	];
-      };
+      options = [ "--cmd cd" ];
     };
 
   };
