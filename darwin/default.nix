@@ -49,6 +49,16 @@
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
+  # garbage collection
+  nix.gc = {
+    automatic = true;
+    interval = [ {
+      Hour = 3;
+      Minute = 15;
+      Weekday = 7;
+    } ];
+    options = "--delete-older-than 21d";
+  };
 
   system.defaults.CustomUserPreferences = {
     # "com.google.Chrome" = {
