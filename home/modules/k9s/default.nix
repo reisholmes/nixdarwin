@@ -6,14 +6,19 @@
   home.file."/Users/reis.holmes/Library/Application Support/k9s/skins/catpuccin-macchiato.yaml" = {
     source = ./catppuccin-macchiato.yaml;
   };
+  home.file."/Users/reis.holmes/Library/Application Support/k9s/views.yaml" = {
+    source = ./views.yaml;
+  };
 
   programs.k9s = {
     enable = true;
 
     settings = {
       k9s = {
-	refreshrate = 3;
+	refreshRate = 3;
 	ui = {
+	  logoless = true;
+	  noIcons = false;
 	  skin = "catppuccin-macchiato";
 	};
       };
