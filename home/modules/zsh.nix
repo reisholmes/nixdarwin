@@ -28,7 +28,13 @@ source $(brew --prefix)/etc/bash_completion.d/az
 
 # for oh-my-posh
 eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ~/catppuccin.omp.json)"
-    '';
+
+
+# https://old.reddit.com/r/KittyTerminal/comments/13ephdh/xtermkitty_ssh_woes_i_know_about_the_kitten_but/https://old.reddit.com/r/KittyTerminal/comments/13ephdh/xtermkitty_ssh_woes_i_know_about_the_kitten_but/    
+# fixes unknown terminal prompt on SSH sessions
+[[ "$TERM" == "xterm-kitty" ]] && alias ssh="TERM=xterm-256color ssh"
+
+'';
 
     shellAliases = {
       # easier rebuilding on darwin

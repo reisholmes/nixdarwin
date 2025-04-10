@@ -58,6 +58,7 @@ in
 	tldr
 	tree
 	wget
+	yamllint
 	yq
 
 	# Terminal fonts
