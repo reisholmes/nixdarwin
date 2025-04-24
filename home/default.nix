@@ -1,10 +1,13 @@
-{ pkgs, config, lib, home-manager, ... }:
-
-let
+{
+  pkgs,
+  config,
+  lib,
+  home-manager,
+  ...
+}: let
   isDarwin = pkgs.stdenv.isDarwin;
   #emacs = (import ../darwin/emacs.nix) { pkgs = pkgs; };
-in
-  {
+in {
   # https://nix-community.github.io/home-manager/options.html
   imports = [
     ./modules/k9s
@@ -36,47 +39,47 @@ in
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
-    home.packages = with pkgs;
-      [
-	bat
-	btop
-	duf
-	eza
-	fd
-	fluxcd
-	git
-	htop
-	jq
-	kubectl
-	kubelogin
-	lf
-	mas
-	neovim
-	oh-my-posh
-	ripgrep
-	terraform
-	tldr
-	tree
-	wget
-	yamllint
-	yq
+    home.packages = with pkgs; [
+      bat
+      btop
+      duf
+      eza
+      fd
+      fluxcd
+      git
+      htop
+      jq
+      kubectl
+      kubelogin
+      lf
+      mas
+      neovim
+      oh-my-posh
+      ripgrep
+      terraform
+      tldr
+      tree
+      wget
+      yamllint
+      yq
 
-	# Terminal fonts
-	nerd-fonts.hack
-	#(nerdfonts.override {fonts = [ "Hack" ]; })
+      # Terminal fonts
+      nerd-fonts.hack
+      #(nerdfonts.override {fonts = [ "Hack" ]; })
 
-	# markdown lsp requirement
-	#markdownlint-cli
-	# markdown conform requirement
-	markdownlint-cli2
+      # markdown lsp requirement
+      #markdownlint-cli
+      # markdown conform requirement
+      markdownlint-cli2
 
-	# nix lsp requirement
-	nixd
+      # nix lsp requirement
+      alejandra
+      nixd
 
-	# Terraform lsp, completion
-	terraform-ls
-	tflint
-      ];
+      # Terraform lsp, completion
+      terraform-ls
+      tflint
+    ];
 
     home.sessionVariables = {
       EDITOR = "nvim";
@@ -91,17 +94,17 @@ in
       enableZshIntegration = true;
 
       settings = {
-	ctrl_n_shortcuts = false;
-	keymap_mode = "vim-insert";
+        ctrl_n_shortcuts = false;
+        keymap_mode = "vim-insert";
       };
     };
 
     # oh-my-posh
-    # place our custom theme, used in modules/zsh.nix, 
+    # place our custom theme, used in modules/zsh.nix,
     home.file."/Users/reis.holmes/catppuccin.omp.json" = {
       source = ./catppuccin.omp.json;
     };
-    # but example below of how we could source program 
+    # but example below of how we could source program
     # with a default theme
     programs.oh-my-posh = {
       enable = false;
@@ -113,16 +116,16 @@ in
       enable = false;
 
       extraConfig = ''
-      -- Your lua code / config here
-      local wezterm = require 'wezterm';
-      return {
-	-- Initial sizing of window
-	initial_cols = 160,
-	initial_rows = 36,
-	font = wezterm.font("Hack Nerd Font"),
-	font_size = 12.0,
-	color_scheme = "Catppuccin Macchiato",
-      }
+        -- Your lua code / config here
+        local wezterm = require 'wezterm';
+        return {
+        -- Initial sizing of window
+        initial_cols = 160,
+        initial_rows = 36,
+        font = wezterm.font("Hack Nerd Font"),
+        font_size = 12.0,
+        color_scheme = "Catppuccin Macchiato",
+
       '';
     };
 
@@ -130,8 +133,7 @@ in
     # https://home-manager-options.extranix.com/?query=programs.zoxide&release=master
     programs.zoxide = {
       enable = true;
-      options = [ "--cmd cd" ];
+      options = ["--cmd cd"];
     };
-
   };
 }
