@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # https://home-manager-options.extranix.com/?query=programs.kitty&release=master
   # Kitty
   programs.kitty = {
@@ -11,9 +9,10 @@
     };
     settings = {
       active_border_color = "#a6da95";
-      background_blur = 32;
-      background_opacity = "0.93";
+      #background_blur = 32;
+      #background_opacity = "0.93";
       cursor_shape = "beam";
+      font_family = "Hack Nerd Font Mono";
       font_size = 15.5;
       macos_option_as_alt = "yes";
       initial_window_height = 44;
@@ -30,6 +29,6 @@
       cursor_trail = 3;
       cursor_trail_decay = "0.1 0.2";
     };
-    themeFile = "Catppuccin-Macchiato";
+    themeFile = "Catppuccin-Mocha";
   };
 }
