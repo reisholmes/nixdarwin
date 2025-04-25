@@ -79,6 +79,10 @@ in {
       # Terraform lsp, completion
       terraform-ls
       tflint
+
+      # Lua formatter
+      lua-language-server
+      stylua
     ];
 
     home.sessionVariables = {

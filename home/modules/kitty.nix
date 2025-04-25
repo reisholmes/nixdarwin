@@ -1,11 +1,12 @@
-{pkgs, ...}: {
+{...}: {
   # https://home-manager-options.extranix.com/?query=programs.kitty&release=master
   # Kitty
   programs.kitty = {
     enable = true;
 
     keybindings = {
-      "ctrl+shift+t" = "launch --cwd=current --type=tab";
+      "ctrl+shift+enter" = "new_window_with_cwd";
+      "ctrl+shift+t" = "new_tab_with_cwd";
     };
     settings = {
       active_border_color = "#a6da95";
