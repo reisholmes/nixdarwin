@@ -78,11 +78,19 @@ in {
 
       # Terraform lsp, completion
       terraform-ls
+      # also used in pre-commit
       tflint
 
       # Lua formatter
       lua-language-server
       stylua
+
+      # pre-commit requirements
+      # https://github.com/antonbabenko/pre-commit-terraform
+      checkov
+      pre-commit
+      terraform-docs
+      terragrunt
     ];
 
     home.sessionVariables = {
