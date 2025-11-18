@@ -12,7 +12,8 @@ in {
   imports = [
     ./modules/k9s
     ./modules/fzf.nix
-    ./modules/kitty.nix
+    ./modules/ghostty
+    #./modules/kitty.nix
     ./modules/lazygit.nix
     ./modules/zsh.nix
   ];
@@ -91,7 +92,9 @@ in {
 
       # pre-commit requirements
       # https://github.com/antonbabenko/pre-commit-terraform
-      checkov
+      # Temporarily disabled due to pyarrow build issue on Python 3.13
+      # See: https://github.com/nixos/nixpkgs/issues/461396
+      #checkov
       pre-commit
       terraform-docs
       terragrunt
@@ -110,6 +113,7 @@ in {
 
       enableBashIntegration = true;
       enableZshIntegration = true;
+      enableFishIntegration = false;
 
       settings = {
         ctrl_n_shortcuts = false;

@@ -28,6 +28,7 @@
     "1password"
     "deskflow"
     "gcloud-cli"
+    "ghostty"
     "powershell"
     "proton-pass"
     # raycast shortcut setup

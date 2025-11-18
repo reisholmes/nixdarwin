@@ -23,11 +23,17 @@
     home-manager,
     mac-app-util,
     nixpkgs,
-  }: {
+  }: let
+    # Define user configurations
+    userConfig = {
+      fullName = "Reis Holmes";
+      name = "reis.holmes";
+    };
+  in {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#reis-work
     darwinConfigurations."reis-work" = nix-darwin.lib.darwinSystem {
-      specialArgs = inputs;
+      specialArgs = inputs // {inherit userConfig;};
 
       modules = [
         ./hosts/macwork/configuration.nix
@@ -43,6 +49,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.verbose = true;
+          home-manager.extraSpecialArgs = {inherit userConfig;};
           home-manager.sharedModules = [
             mac-app-util.homeManagerModules.default
           ];

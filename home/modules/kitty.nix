@@ -2,7 +2,7 @@
   # https://home-manager-options.extranix.com/?query=programs.kitty&release=master
   # Kitty
   programs.kitty = {
-    enable = true;
+    enable = false;
 
     keybindings = {
       "ctrl+shift+enter" = "new_window_with_cwd";
