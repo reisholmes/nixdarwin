@@ -34,9 +34,14 @@
 
     '';
 
+    sessionVariables = {
+      # claude code
+      DISABLE_PROMPT_CACHING = "0";
+    };
+
     shellAliases = {
       # easier rebuilding on darwin
-      nix_rebuild = "darwin-rebuild switch --flake /Users/reis.holmes/Documents/code/repos/nix-darwin/#reis-work";
+      nix_rebuild = "sudo darwin-rebuild switch --flake /Users/reis.holmes/Documents/code/personal_repos/nix-darwin/#reis-work";
 
       # modern cat command remap
       cat = "bat";
@@ -44,6 +49,9 @@
       # Next level of an ls
       #options :  --no-filesize --no-time --no-permissions
       ls = "eza --no-filesize --long --color=always --icons=always --no-user";
+
+      # list tree
+      lt = "lsd --tree";
     };
     syntaxHighlighting.enable = true;
 

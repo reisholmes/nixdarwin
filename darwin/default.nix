@@ -1,12 +1,14 @@
-{ pkgs, config, ... }:
-
 {
+  pkgs,
+  config,
+  ...
+}: {
   # adds an overlay for karabiner-elements due to issue at:
   # https://github.com/LnL7/nix-darwin/issues/1041
   nixpkgs = {
-      config = {
-        allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = _: true;
     };
     overlays = [
       (self: super: {
@@ -22,12 +24,11 @@
     ];
   };
 
-
   environment.systemPackages = with pkgs; [
     # karabiner-elements
   ];
 
-  homebrew = import ./homebrew.nix // { enable = true; };
+  homebrew = import ./homebrew.nix // {enable = true;};
 
   # Auto upgrade nix package and the daemon service.
   # services.nix-daemon.enable = true;
@@ -47,16 +48,21 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
 
+  # Defines primary user
+  system.primaryUser = "reis.holmes";
+
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   # garbage collection
   nix.gc = {
     automatic = true;
-    interval = [ {
-      Hour = 3;
-      Minute = 15;
-      Weekday = 7;
-    } ];
+    interval = [
+      {
+        Hour = 3;
+        Minute = 15;
+        Weekday = 7;
+      }
+    ];
     options = "--delete-older-than 21d";
   };
 
@@ -72,10 +78,9 @@
   # system.keyboard.userKeyMapping = [
   #     # caps lock to escape
   #     {
-  #         HIDKeyboardModifierMappingSrc = 30064771129; 
+  #         HIDKeyboardModifierMappingSrc = 30064771129;
   #         HIDKeyboardModifierMappingDst = 30064771113;
   #     }
-  #     # 
+  #     #
   # ]
 }
-

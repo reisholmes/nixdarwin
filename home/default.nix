@@ -42,16 +42,21 @@ in {
     home.packages = with pkgs; [
       bat
       btop
+      claude-code
       duf
       eza
       fd
       fluxcd
       git
+      gh
+      go
       htop
       jq
       kubectl
-      kubelogin
+      # error with build on oct 16, installed manually, can add in later
+      #kubelogin
       lf
+      lsd
       mas
       neovim
       oh-my-posh
@@ -80,7 +85,6 @@ in {
       terraform-ls
       # also used in pre-commit
       tflint
-
       # Lua formatter
       lua-language-server
       stylua
@@ -91,6 +95,8 @@ in {
       pre-commit
       terraform-docs
       terragrunt
+
+      #apple-sdk_15
     ];
 
     home.sessionVariables = {

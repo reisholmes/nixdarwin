@@ -9,29 +9,38 @@
     "hashicorp/tap"
     "jesseduffield/lazydocker"
     "powershell/tap"
+    "deskflow/homebrew-tap"
   ];
 
   # typically pre compiled binaries
   brews = [
     "adr-tools"
+    "awscli"
     "azure-cli"
     "lazydocker"
+    "node"
+    "podman"
   ];
 
   # Homebrew package definition that installs macOS native applications
   # Casks offer a way to cmd line manage installs of Graphical apps
   casks = [
     "1password"
+    "deskflow"
+    "gcloud-cli"
     "powershell"
+    "proton-pass"
     # raycast shortcut setup
     # https://www.youtube.com/watch?v=DBifQv9AYhc
     "raycast"
+    # remote desktop
+    "windows-app"
   ];
 
   # MacStore apps, have to be logged in
   # search for apps using mas cli
   # mas list, mas search "xxx"
   masApps = {
-    "windows app" = 1295203466;   
+    #  "windows app" = 1295203466;
   };
 }
