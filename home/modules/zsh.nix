@@ -32,6 +32,11 @@
       # fixes unknown terminal prompt on SSH sessions
       [[ "$TERM" == "xterm-kitty" ]] && alias ssh="TERM=xterm-256color ssh"
 
+      # Disable zoxide cd override for Claude Code sessions
+      if [[ -n "$CLAUDE_CODE_SESSION" ]]; then
+        alias cd='builtin cd'
+      fi
+
     '';
 
     sessionVariables = {
